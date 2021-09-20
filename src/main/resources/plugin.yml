@@ -1,0 +1,7 @@
+name: BloodCoin
+version: ${project.version}
+main: me.dkflab.bloodcoin.BloodCoin
+api-version: 1.17
+commands:
+  bloodshop:
+    description: Opens blood shop.
