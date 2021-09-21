@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Collections;
 
@@ -40,12 +41,12 @@ public class StoreScreen implements InventoryHolder {
             e.getWhoClicked().openInventory(main.armorGUI().getInventory());
         }
         if (mat.equals(Material.NETHERITE_SWORD)) {
-            // TODO: Weapons
             main.weaponsGUI().init();
             e.getWhoClicked().openInventory(main.weaponsGUI().getInventory());
         }
     }
 
+    @NotNull
     @Override
     public Inventory getInventory() {
         return inv;

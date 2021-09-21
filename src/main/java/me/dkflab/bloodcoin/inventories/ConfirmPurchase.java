@@ -4,11 +4,14 @@ import me.dkflab.bloodcoin.BloodCoin;
 import me.dkflab.bloodcoin.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
+import sun.security.krb5.internal.EncAPRepPart;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -74,15 +77,30 @@ public class ConfirmPurchase implements InventoryHolder {
     public void purchaseItem(List<ItemStack> items, int price, Player p) {
         List<String> lore = new ArrayList<>();
         itemsMap.clear();
-        for (ItemStack i : items) {
-            lore.add(Utils.color("&71x " + i.getI18NDisplayName()));
-            itemsMap.put(i, price);
+        if (items.size() == 1) {
+            ItemStack item = items.get(0);
+            itemsMap.put(item, price);
+            purchaseMap.put(p, itemsMap);
+            // lore
+            for (Enchantment e : item.getEnchantments().keySet()) {
+                String s = e.getKey().toString();
+                s=s.substring(10);
+                s = s.substring(0,1).toUpperCase() + s.substring(1);
+                lore.add(Utils.color("&7" + s + " " + item.getEnchantments().get(e)));
+            }
+            init(Utils.createItem(Utils.color("&e" + item.getI18NDisplayName()),item.getType(),lore,true));
+        } else {
+            for (ItemStack i : items) {
+                lore.add(Utils.color("&71x " + i.getI18NDisplayName()));
+                itemsMap.put(i, price);
+            }
+            purchaseMap.put(p,itemsMap);
+            init(Utils.createItem("&fPurchase Summary", Material.BOOK, lore,true));
         }
-        purchaseMap.put(p,itemsMap);
-        init(Utils.createItem("&fPurchase Summary", Material.BOOK, lore,true));
         p.openInventory(inv);
     }
 
+    @NotNull
     @Override
     public Inventory getInventory() {
         return inv;
