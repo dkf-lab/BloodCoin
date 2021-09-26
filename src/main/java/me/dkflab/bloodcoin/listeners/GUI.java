@@ -5,6 +5,7 @@ import me.dkflab.bloodcoin.inventories.ArmorGUI;
 import me.dkflab.bloodcoin.inventories.ConfirmPurchase;
 import me.dkflab.bloodcoin.inventories.StoreScreen;
 import me.dkflab.bloodcoin.inventories.WeaponsGUI;
+import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -31,10 +32,22 @@ public class GUI implements Listener {
         }
         if (e.getClickedInventory().getHolder() instanceof WeaponsGUI) {
             e.setCancelled(true);
+            if (e.getCurrentItem()!=null) {
+                if (e.getCurrentItem().getType().equals(Material.ARROW)) {
+                    e.getWhoClicked().openInventory(main.storeScreen().getInventory());
+                    return;
+                }
+            }
             main.weaponsGUI().event(e);
         }
         if (e.getClickedInventory().getHolder() instanceof ArmorGUI) {
             e.setCancelled(true);
+            if (e.getCurrentItem()!=null) {
+                if (e.getCurrentItem().getType().equals(Material.ARROW)) {
+                    e.getWhoClicked().openInventory(main.storeScreen().getInventory());
+                    return;
+                }
+            }
             main.armorGUI().event(e);
         }
     }

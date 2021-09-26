@@ -2,6 +2,7 @@ name: BloodCoin
 version: ${project.version}
 main: me.dkflab.bloodcoin.BloodCoin
 api-version: 1.17
+softdepend: [PlaceholderAPI]
 commands:
   bloodshop:
     description: Opens blood shop.

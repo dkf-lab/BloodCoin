@@ -8,12 +8,15 @@ import me.dkflab.bloodcoin.listeners.GUI;
 import me.dkflab.bloodcoin.listeners.PvP;
 import me.dkflab.bloodcoin.managers.CurrencyManager;
 import me.dkflab.bloodcoin.managers.DataManager;
+import me.dkflab.bloodcoin.placeholders.CoinAmount;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.HashMap;
 
 public final class BloodCoin extends JavaPlugin implements CommandExecutor {
 
@@ -23,6 +26,8 @@ public final class BloodCoin extends JavaPlugin implements CommandExecutor {
     private ArmorGUI armorGUI;
     private WeaponsGUI weaponsGUI;
     private DataManager dataManager;
+
+    public static HashMap<Player, Object> gui = new HashMap<>();
 
     @Override
     public void onEnable() {
@@ -35,6 +40,8 @@ public final class BloodCoin extends JavaPlugin implements CommandExecutor {
         dataManager = new DataManager(this);
         getServer().getPluginManager().registerEvents(new GUI(this),this);
         getServer().getPluginManager().registerEvents(new PvP(this),this);
+
+        new CoinAmount(this).register();
     }
 
     @Override
@@ -77,5 +84,9 @@ public final class BloodCoin extends JavaPlugin implements CommandExecutor {
 
     public DataManager data() {
         return this.dataManager;
+    }
+
+    public static HashMap<Player, Object> getGUI() {
+        return gui;
     }
 }

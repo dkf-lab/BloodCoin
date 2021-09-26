@@ -28,7 +28,7 @@ public class StoreScreen implements InventoryHolder {
         }
         inv.setItem(21,Utils.createItem("&bArmor", Material.NETHERITE_HELMET, Collections.singletonList("&7View armor options"),true));
         inv.setItem(23, Utils.createItem("&bWeapons", Material.NETHERITE_SWORD, Collections.singletonList("&7View available weapons"),true));
-        inv.setItem(31, Utils.createItem("&cBlood Coins", Material.BOOK, Collections.singletonList("&7You have &c" + main.getCurrency().getPoints(player) + "&7 blood coins!"),true));
+        inv.setItem(31, Utils.createItem("&cBlood Coins", Material.WITHER_SKELETON_SKULL, Collections.singletonList("&7You have &c" + main.getCurrency().getPoints(player) + "&7 blood coins!"),true));
     }
 
     public void event(InventoryClickEvent e) {
@@ -38,11 +38,11 @@ public class StoreScreen implements InventoryHolder {
         Material mat = e.getCurrentItem().getType();
         if (mat.equals(Material.NETHERITE_HELMET)) {
             main.armorGUI().init();
-            e.getWhoClicked().openInventory(main.armorGUI().getInventory());
+            e.getWhoClicked().openInventory(Utils.addBackButton(main,(Player)e.getWhoClicked(),main.armorGUI().getInventory()));
         }
         if (mat.equals(Material.NETHERITE_SWORD)) {
             main.weaponsGUI().init();
-            e.getWhoClicked().openInventory(main.weaponsGUI().getInventory());
+            e.getWhoClicked().openInventory(Utils.addBackButton(main,(Player)e.getWhoClicked(),main.weaponsGUI().getInventory()));
         }
     }
 

@@ -5,11 +5,14 @@ import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Item;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -53,5 +56,11 @@ public class Utils {
         //
         item.setItemMeta(meta);
         return item;
+    }
+
+    public static Inventory addBackButton(BloodCoin main, Player p, Inventory inv) {
+        inv.setItem(inv.getSize()-9, createItem("&cBack", Material.ARROW, Collections.singletonList("&7Go to the previous screen."), false));
+        inv.setItem(inv.getSize()-1, createItem("&cCoins", Material.WITHER_SKELETON_SKULL, Collections.singletonList("&7You have &c" + main.getCurrency().getPoints(p) + "&7 blood coins!"), false));
+        return inv;
     }
 }
